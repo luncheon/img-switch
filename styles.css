@@ -1,0 +1,8 @@
+:where(img-switch) {
+  display: block;
+}
+:where(img-switch)::part(img) {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}

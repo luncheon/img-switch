@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="styles.css">
+    <script src="index.js"></script>
+  </head>
+  <body style="margin: 0">
+    <input type="range" min="0" max="100" value="20" style="display: block; width: calc(100vmin - 32px); height: 16px; margin: 8px auto">
+    <img-switch style="margin: auto">
+      <source data-device-width="400" src="assets/image-400x400.webp">
+      <source data-device-width="800" src="assets/image-800x800.webp">
+      <source src="assets/image-1600x1600.webp">
+    </img-switch>
+    <div
+      style="
+        position: absolute;
+        top: 32px;
+        left: 0;
+        right: 0;
+        width: calc(100vmin - 48px);
+        margin: auto;
+        text-align: right;
+        color: white;
+        text-shadow: 0 0 1px black, 1px 1px 2px black;
+      "
+    >
+      <div id="devicePixelRatio"></div>
+      <div id="cssPixels"></div>
+      <div id="devicePixels"></div>
+    </div>
+    <script>
+      document.getElementById("devicePixelRatio").textContent = `devicePixelRatio: ${devicePixelRatio}`;
+
+      const input = document.body.firstElementChild;
+      const imgSwitch = document.getElementsByTagName("img-switch")[0];
+      const onChange = () => {
+        imgSwitch.style.width = `min(${input.value}vh - 32px, ${input.value}vw)`;
+        const { width: w, height: h } = imgSwitch.getBoundingClientRect();
+        document.getElementById("cssPixels").textContent = `css pixels: ${w.toFixed(1)} × ${h.toFixed(1)}`;
+        document.getElementById("devicePixels").textContent = `device pixels: ${(w * 2).toFixed(1)} × ${(h * 2).toFixed(1)}`;
+      };
+      input.addEventListener("input", onChange);
+      addEventListener("resize", onChange);
+      addEventListener("load", onChange);
+    </script>
+  </body>
+</html>
